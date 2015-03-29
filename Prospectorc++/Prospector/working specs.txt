@@ -1,0 +1,45 @@
+USER   ZIP CODE       CHILDREN      AGE     DATE MOVED            INCOME        LAST BOUGHT HOUSE       CURRENT HOME OWNER
+
+Clustering Data for beyesian analysis
+
+
+
+
+CHILDREN  0      A
+CHILDREN  1-2    B
+CHILDREN  3+     C
+
+AGE GROUPS
+18-25            D
+26-35            E
+36-45            F
+46-55            G
+56-65            H
+66+              I
+
+DATE MOVED
+WITHIN PAST YEAR J
+2-3 YEARS        J
+4+ YEARS         L
+
+INCOME
+<30000           M
+30000+40000      N
+40000+50000      O
+50000+60000      P 
+60000+70000      Q
+70000+           R
+
+Owns current home: no   S
+Owns current home: yes  T
+
+YEARS SINCE HOME PURCHASE
+
+-1 (never)              U
+0-1                     V
+2-5                     W
+6-10                    X
+11+                     Y
+
+
+
