@@ -13,17 +13,9 @@ final class SessionIdentifierGenerator
   }
 }
 
-
-
-
-
-
-
 public class BDataMaker 
 {
     
-    
-
     static SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
     
     static int isInt(String s)
@@ -40,6 +32,8 @@ public class BDataMaker
 	return r;
     }
     
+    
+    
     public static void main(String[] args) 
     {
 	
@@ -52,15 +46,6 @@ public class BDataMaker
 		    {"4+ Children",     "C4",  "+"}
 	};	
 
-	Category childCat = new Category(childrenSA);
-	{
-	    System.out.println(childCat);	    
-	    double rnd = Math.random();
-	    int x = childCat.whichRandom(rnd);
-	    String cat = childCat.get(x).getS2();
-	    System.out.printf("%.2f = %s\n",rnd, cat);
-	}
-	
 	String[][] ageSA = {
 		{"Age range", "A", ""},
 		{"18-25", "A0", "",  },
@@ -71,15 +56,6 @@ public class BDataMaker
 		{"66+",   "A5", ""   }	
 	    };
 	
-	Category ageCat = new Category(ageSA);
-	
-	{
-	    double rnd = Math.random();
-	    int x = ageCat.whichRandom(rnd);
-	    String age = ageCat.get(x).getS2();
-	    System.out.println(ageCat);
-	    System.out.printf("%.2f = %s\n",rnd, age);
-	}
 
 	String[][] dateMovedSA = {
 	    {"DATE MOVED",       "M",  ""  },
@@ -90,8 +66,6 @@ public class BDataMaker
 	    {"Last 4 years",     "M4", ""  },
 	    };
 	
-	Category dateMovedCat = new Category(dateMovedSA);
-	System.out.println(dateMovedCat);
 
 
 
@@ -106,28 +80,54 @@ public class BDataMaker
 	    {"100001+",          "I6",  ""}
 	    };
 	
+	
+	Category childCat = new Category(childrenSA);
+        Category ageCat = new Category(ageSA);
+        Category dateMovedCat = new Category(dateMovedSA);
 	Category incomeCat = new Category(incomeCatSA);
-	System.out.println(incomeCat);
-	
-	int specials = 0;
+        
+        // int specials = 0;
 	int recordsToMake = 1;
-	System.out.println(childCat);
-
 	
-	for (int x = 0; x < recordsToMake; x++)
+	for (int counter = 0; counter < recordsToMake; counter++)
 	{
 	    int specialness = 1;
-	    String s = sig.nextSessionId();
-	    System.out.print(s);
-	    int max = s.length()-4;
-	    String s2 = s.substring(max, max+3);
-	    int i = isInt(s2);
-	    if (isInt(s2) > 0)
-	    {
-		specials ++;
-		specialness += i;
-		System.out.print(" Special ");
-	    }
+	    String id = sig.nextSessionId();
+	    System.out.print(id);
+	    //int max = s.length()-4;
+	    // String s2 = s.substring(max, max+3);
+	    //int i = isInt(s2);
+	    //if (isInt(s2) > 0)
+	    //{
+		// specials ++;
+		// specialness += i;
+		// System.out.print(" Special ");
+	    //}
+            
+            MortgageTuple mt = new MortgageTuple();
+            mt.setId(id);
+            {
+                System.out.println(childCat);	    
+                double rnd = Math.random();
+                int x = childCat.whichRandom(rnd);
+                String cat = childCat.get(x).getS2();
+                System.out.printf("%.2f = %s\n",rnd, cat);
+                mt.setChildren(cat);
+            }
+            {
+                double rnd = Math.random();
+                int x = ageCat.whichRandom(rnd);
+                String age = ageCat.get(x).getS2();
+                System.out.printf("%.2f = %s\n",rnd, age);
+                System.out.println(age);
+                mt.setAge(age);
+                
+            }
+            
+            
+            
+            
+            
 	    System.out.println();
 	}
 	System.out.printf("Specials = %f \n",100.0 * specials / recordsToMake );
