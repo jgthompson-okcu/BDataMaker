@@ -29,20 +29,61 @@ public class MortgageTuple
         private String mortgageCandidateRating;
         private long iMortgageCandidateRating;
         
-    static private long getLongFromCategory(String s)
-    {
-        long ret = 0;
-        try 
+        
+        public MortgageTuple()
         {
-            String s2 = s.substring(1);
-            ret = Long.parseLong(s2);
+            reset(this);
         }
-        catch (Exception ex)
+        public static MortgageTuple reset(MortgageTuple mt)
         {
-            System.err.printf("Could not convert '%s' to long value\n",s);
+                mt.id = "xx";
+                mt.iId = new BigInteger("-1");
+                mt.children = "xx";
+                mt.iChildren = -1;
+                mt.age = "xx";
+                mt.iAge = -1;
+                mt.datemoved  = "xx";
+                mt.iDateMoved = -1;
+                mt.income  = "xx";
+                mt.iIncome = -1;
+                mt.mortgageBought  = "xx";
+                mt.iMortgageBought = -1;
+                mt.mortgageCandidateRating  = "xx";
+                mt.iMortgageCandidateRating = -1;
+                return mt;
         }
-        return ret;
-    }        
+        
+        @Override
+        public String toString()
+        {
+            String s = "";
+            
+            // don't print out bignum because it is a huge string that
+            // looks confusing
+            
+            String f1 = "MortgageTuple record: (%s\t%s\t%s\t%s\t%s\t%s)";
+            String f2 = "MortgageTuple values: (%d\t%d\t%d\t%d\t%d\t%d)";
+            
+            s += String.format(f1,
+                    this.children, 
+                    this.age, 
+                    this.datemoved,
+                    this.income, 
+                    this.mortgageBought, 
+                    this.mortgageCandidateRating
+                    );
+            
+            s += "\n" + String.format(f2,
+                    this.iChildren,
+                    this.iAge,
+                    this.iDateMoved,
+                    this.iIncome,
+                    this.iMortgageBought,
+                    this.iMortgageCandidateRating
+                    );
+            
+            return s;
+        }
 
     public String getId() {
         return id;
@@ -71,43 +112,43 @@ public class MortgageTuple
     
     public void setId(String s) {
         this.id = s;
-        BigInteger bi = new BigInteger(s,32);
+        BigInteger bi = Utils.parseBigIntSafely(s);
         this.setiId(bi);
     }
 
     public void setChildren(String s) {
         this.children = s;
-        long l = getLongFromCategory(s);
+        long l = Utils.getLongFromCategory(s);
         this.setiChildren(l);
     }
 
     public void setAge(String s) {
         this.age = s;
-        long l = getLongFromCategory(s);
+        long l = Utils.getLongFromCategory(s);
         this.setiAge(l);
     }
 
     public void setDatemoved(String s) {
-        this.datemoved = datemoved;
-        long l = getLongFromCategory(s);
+        this.datemoved = s;
+        long l = Utils.getLongFromCategory(s);
         this.setiDateMoved(l);
     }
 
     public void setIncome(String s) {
         this.income = s;
-        long l = getLongFromCategory(s);
+        long l = Utils.getLongFromCategory(s);
         this.setiIncome(l);        
     }
 
     public void setMortgageBought(String s) {
         this.mortgageBought = s;
-        long l = getLongFromCategory(s);
+        long l = Utils.getLongFromCategory(s);
         this.setiMortgageBought(l);        
     }
 
     public void setMortgageCandidateRating(String s) {
         this.mortgageCandidateRating = s;
-        long l = getLongFromCategory(s);
+        long l = Utils.getLongFromCategory(s);
         this.setiMortgageCandidateRating(l);        
     }
     public BigInteger getiId() {
