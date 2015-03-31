@@ -1,5 +1,7 @@
 package bdatamaker;
 
+
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
@@ -8,52 +10,6 @@ public class Utils {
     static SessionIdentifierGenerator sig = new SessionIdentifierGenerator();
 
     
-    public static String getRandomCategory(Category category) {
-        // based on the data in a category table, this method picks
-        // one of the elements of the table randomly and returns the index
-        // value of the element.
-        String s;
-        double rnd = Math.random();
-        int x = category.whichRandom(rnd);
-        s = category.get(x).getS2();
-        System.out.printf("%.2f = %s\n", rnd, s);
-        System.out.println(s);
-        return s;
-    }
-
-    
-    public static void fillInRandomValuesForCategoris(
-            
-        // using data from the category tables,
-        // this method fills in the members of of a mortgage record by 
-        // randomly picking from the categories for each member.
-        // 
-        // currently fills in the members 
-        //
-        //      ID, 
-        //      children, 
-        //      age, 
-        //      dateMoved
-            
-        MortgageTuple mt,
-        CategoryData categoryDataTables) {
-        String s;
-
-        String id = sig.nextSessionId();
-        mt.setId(id);
-
-        s = getRandomCategory(categoryDataTables.childCat);
-        mt.setChildren(s);
-
-        s = getRandomCategory(categoryDataTables.ageCat);
-        mt.setAge(s);
-
-        s = getRandomCategory(categoryDataTables.dateMovedCat);
-        mt.setDatemoved(s);
-
-        s = getRandomCategory(categoryDataTables.incomeCat);
-        mt.setIncome(s);
-    }
 
     public static long getLongFromCategory(String s) {
 
