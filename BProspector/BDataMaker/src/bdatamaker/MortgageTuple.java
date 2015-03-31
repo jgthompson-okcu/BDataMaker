@@ -62,6 +62,16 @@ public class MortgageTuple
                 return mt;
         }
         
+        public String getCSV()
+        {
+            // this is like toString except it returns clean out,
+            // of members separated by commas only
+            String s;
+            s = String.format("%s,%s,%s,%s,%s,%s,%s",
+                    this.id, this.children, this.age, this.relocationDate,
+                    this.income, this.iMortgageBought, this.mortgageCandidateRating);
+            return s;
+        }
         @Override
         public String toString()
         {

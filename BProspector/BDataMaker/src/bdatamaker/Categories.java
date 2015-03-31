@@ -71,7 +71,21 @@ public class Categories {
         return relocationDateCategories;
     }
     
-    public int getRandomCategory(Category category) {
+    public int getRandomCategoryByEvenProbability(Category category) {
+        
+        // based on the data in a category table, this method picks
+        // one of the elements of the table randomly and returns the index
+        // value of the element.
+        
+        String s;
+        double rnd = Math.random();
+        int max = category.categoryLineItems.size();
+        int x = (int)(Math.random() * max);
+        s = category.get(x).getS2();
+        return x;
+    }    
+    
+    public int getRandomCategoryBySpecifiedProbabilities(Category category) {
         
         // based on the data in a category table, this method picks
         // one of the elements of the table randomly and returns the index
@@ -115,22 +129,22 @@ public class Categories {
         Category category;
                 
         category = childCategories;
-        c = getRandomCategory( category );
+        c = getRandomCategoryByEvenProbability( category );
         s = category.get(c).getS2();
         mt.setChildren(s);
 
         category = this.ageCategories;
-        c = getRandomCategory( category );
+        c = getRandomCategoryByEvenProbability( category );
         s = category.get(c).getS2();
         mt.setAge(s);
 
         category = this.relocationDateCategories;
-        c = getRandomCategory( category );
+        c = getRandomCategoryByEvenProbability( category );
         s = category.get(c).getS2();        
         mt.setRelocationDate(s);
 
         category = this.incomeCategories;
-        c = getRandomCategory( category );
+        c = getRandomCategoryByEvenProbability( category );
         s = category.get(c).getS2();
         mt.setIncome(s);
         
@@ -182,6 +196,23 @@ public class Categories {
         d = cil.percentLikely;
         return d;
     }
+    
+    public double getTotalPercentageForTuple(MortgageTuple mt) {
+        double p;
+        double percentForMortgage = 1;
+        {
+            
+            double[] percentages = this.getProbabilitiesList(mt);
+            for (double d: percentages)
+            {
+                percentForMortgage *= d;
+                // System.out.printf("%6.2f ", d);
+            }
+            percentForMortgage *= 5;
+        }
+        p = percentForMortgage;
+        return p;
+    }    
     
     
     
