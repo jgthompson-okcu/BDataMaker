@@ -9,32 +9,41 @@ public class MortgageTuple
         // the Strings are representations like "C1" ,"I3" and so on.
         // the longs are equivalent values of the digit of the string.
         //
-        // so children could equal "C3" and iChildren would equal "3";
+        // if children could equal "C3" then iChildren would equal "3";
 
-        // our id is a BigInt.  In string form it is converted to base 32
-        //                      for display.
+        // id is a BigInt.  In string form it is converted to base 32
+        //                  for display.
     
         private String id;
         private BigInteger iId;
         private String children;
-        private long iChildren;
+        private int iChildren;
         private String age;
-        private long iAge;
-        private String datemoved;
-        private long iDateMoved;
+        private int iAge;
+        private String relocationDate;
+        private int iRelocationDate;
         private String income;
-        private long iIncome;
+        private int iIncome;
         private String mortgageBought;
-        private long iMortgageBought;
+        private int iMortgageBought;
         private String mortgageCandidateRating;
-        private long iMortgageCandidateRating;
+        private int iMortgageCandidateRating;
         
+
         
         public MortgageTuple()
         {
             reset(this);
         }
-        public static MortgageTuple reset(MortgageTuple mt)
+        
+        public void generateNewID()
+        {
+            String nid = Utils.sig.nextSessionId();
+            this.setId(nid);
+            
+            
+        }
+        private MortgageTuple reset(MortgageTuple mt)
         {
                 mt.id = "xx";
                 mt.iId = new BigInteger("-1");
@@ -42,8 +51,8 @@ public class MortgageTuple
                 mt.iChildren = -1;
                 mt.age = "xx";
                 mt.iAge = -1;
-                mt.datemoved  = "xx";
-                mt.iDateMoved = -1;
+                mt.relocationDate  = "xx";
+                mt.iRelocationDate = -1;
                 mt.income  = "xx";
                 mt.iIncome = -1;
                 mt.mortgageBought  = "xx";
@@ -67,7 +76,7 @@ public class MortgageTuple
             s += String.format(f1,
                     this.children, 
                     this.age, 
-                    this.datemoved,
+                    this.relocationDate,
                     this.income, 
                     this.mortgageBought, 
                     this.mortgageCandidateRating
@@ -76,7 +85,7 @@ public class MortgageTuple
             s += "\n" + String.format(f2,
                     this.iChildren,
                     this.iAge,
-                    this.iDateMoved,
+                    this.iRelocationDate,
                     this.iIncome,
                     this.iMortgageBought,
                     this.iMortgageCandidateRating
@@ -97,8 +106,8 @@ public class MortgageTuple
         return age;
     }
 
-    public String getDatemoved() {
-        return datemoved;
+    public String getRelocationDate() {
+        return relocationDate;
     }
     public String getIncome() {
         return income;
@@ -116,66 +125,72 @@ public class MortgageTuple
         this.setiId(bi);
     }
 
-    public void setChildren(String s) {
+    public int setChildren(String s) {
         this.children = s;
-        long l = Utils.getLongFromCategory(s);
+        int l = Utils.getIntFromCategory(s);
         this.setiChildren(l);
+        return l;
     }
 
-    public void setAge(String s) {
+    public int setAge(String s) {
         this.age = s;
-        long l = Utils.getLongFromCategory(s);
+        int l = Utils.getIntFromCategory(s);
         this.setiAge(l);
+        return l;
     }
 
-    public void setDatemoved(String s) {
-        this.datemoved = s;
-        long l = Utils.getLongFromCategory(s);
-        this.setiDateMoved(l);
+    public int setRelocationDate(String s) {
+        this.relocationDate = s;
+        int l = Utils.getIntFromCategory(s);
+        this.setiRelocationDate(l);
+        return l;
     }
 
-    public void setIncome(String s) {
+    public int setIncome(String s) {
         this.income = s;
-        long l = Utils.getLongFromCategory(s);
-        this.setiIncome(l);        
+        int l = Utils.getIntFromCategory(s);
+        this.setiIncome(l);  
+        return l;
     }
 
-    public void setMortgageBought(String s) {
+    public int setMortgageBought(String s) {
         this.mortgageBought = s;
-        long l = Utils.getLongFromCategory(s);
+        int l = Utils.getIntFromCategory(s);
         this.setiMortgageBought(l);        
+        return l;
     }
 
-    public void setMortgageCandidateRating(String s) {
+    public int setMortgageCandidateRating(String s) {
         this.mortgageCandidateRating = s;
-        long l = Utils.getLongFromCategory(s);
-        this.setiMortgageCandidateRating(l);        
+        int l = Utils.getIntFromCategory(s);
+        this.setiMortgageCandidateRating(l);    
+        return l;
     }
     public BigInteger getiId() {
         return iId;
     }
 
-    public long getiChildren() {
+    public int getiChildren() {
         return iChildren;
     }
 
-    public long getiAge() {
+    public int getiAge() {
         return iAge;
     }
 
-    public long getiDateMoved() {
-        return iDateMoved;
+    public int getiRelocationDate() {
+        return iRelocationDate;
     }
 
-    public long getiIncome() {
+    public int getiIncome() {
         return iIncome;
     }
 
-    public long getiMortgageBought() {
+    public int getiMortgageBought() {
         return iMortgageBought;
     }
     
-    public long getiMortgageCandidateRating() {
+    public int getiMortgageCandidateRating() {
         return iMortgageCandidateRating;
     }
 
@@ -183,27 +198,27 @@ public class MortgageTuple
         this.iId = iId;
     }
 
-    public void setiDateMoved(long iDateMoved) {
-        this.iDateMoved = iDateMoved;
+    public void setiRelocationDate(int iRelocationDate) {
+        this.iRelocationDate = iRelocationDate;
     }
     
-    public void setiChildren(long iChildren) {
+    public void setiChildren(int iChildren) {
         this.iChildren = iChildren;
     }
 
-    public void setiAge(long iAge) {
+    public void setiAge(int iAge) {
         this.iAge = iAge;
     }
     
-    public void setiIncome(long iIncome) {
+    public void setiIncome(int iIncome) {
         this.iIncome = iIncome;
     }
     
-    public void setiMortgageBought(long iMortgageBought) {
+    public void setiMortgageBought(int iMortgageBought) {
         this.iMortgageBought = iMortgageBought;
     }
 
-    public void setiMortgageCandidateRating(long iMortgageCandidateRating) {
+    public void setiMortgageCandidateRating(int iMortgageCandidateRating) {
         this.iMortgageCandidateRating = iMortgageCandidateRating;
     }
 }

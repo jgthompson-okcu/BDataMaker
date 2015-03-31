@@ -11,7 +11,7 @@ public class Utils {
 
     
 
-    public static long getLongFromCategory(String s) {
+    public static int getIntFromCategory(String s) {
 
         // retrieves the numeric value indicating an element
         // in a category table.
@@ -27,15 +27,15 @@ public class Utils {
         // the numeric value of the digits contained in the string
         // past the first character
 
-        long ret = 0;
+        int ret = 0;
         try 
         {
             String s2 = s.substring(1);
-            ret = parseLongSafely(s2);
+            ret = parseIntSafely(s2);
         } 
         catch (Exception ex) 
         {
-            System.err.printf("getLongFromCategory Error: %s\n", ex.getMessage());
+            System.err.printf("getIntFromCategory Error: %s\n", ex.getMessage());
             System.err.printf("Could not convert category '%s' to numeric value\n", s);
         }
         return ret;
@@ -72,6 +72,19 @@ public class Utils {
         }
         return r;
     }
+    
+        public double addTuplePercents(MortgageTuple mt)
+        {
+            double d = 0;
+            
+            int which = (int) mt.getiAge();
+            
+            
+            
+            
+            return d;
+            
+        }
 }
 
 final class SessionIdentifierGenerator {

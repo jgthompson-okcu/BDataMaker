@@ -1,6 +1,9 @@
 package bdatamaker;
 
 // this aggregates our collection of categories
+
+import java.util.ArrayList;
+
 // We have categories of data, like
 //      categories for number of childen
 //      categories for age ranges
@@ -19,36 +22,56 @@ public class Categories {
     
     final static Datafiles datafiles = new Datafiles();
     
-    private static Category childCategories = new Category(
-            datafiles.getChildrenCategories());
-    private static Category incomeCategories = new Category(
-            datafiles.getIncomeCategories());
-    private static Category ageCategories = new Category(
-            datafiles.getAgeCategories());
-    private static Category relocationDateCategories = new Category(
-            datafiles.getRelocationCategories());
+    private  final  Category childCategories; 
+    private  final  Category incomeCategories;
+    private  final  Category ageCategories;
+    private  final  Category relocationDateCategories;
+    
 
-    static boolean read() {
+    public String toString()
+    {
+        String s = "";
+        s += String.format("childCategories\n%s\n",childCategories);
+        s += String.format("incomeCategories\n%s\n",incomeCategories);
+        s += String.format("ageCategories\n%s\n",ageCategories);
+        s += String.format("relocationDateCategories\n%s\n",relocationDateCategories);
+        return s;
+    }
+    public Categories()
+    {
+
+        
+        childCategories = new Category(
+            datafiles.getChildrenCategories());
+        incomeCategories = new Category(
+            datafiles.getIncomeCategories());
+        ageCategories = new Category(
+            datafiles.getAgeCategories());
+       relocationDateCategories = new Category(
+            datafiles.getRelocationCategories());
+    }
+
+    boolean readFromDataFiles() {
         return datafiles.read();
     }
 
-    public static Category getChildCategories() {
+    public  Category getChildCategories() {
         return childCategories;
     }
 
-    public static Category getIncomeCategories() {
+    public  Category getIncomeCategories() {
         return incomeCategories;
     }
 
-    public static Category getAgeCategories() {
+    public  Category getAgeCategories() {
         return ageCategories;
     }
 
-    public static Category getRelocationDateCategories() {
+    public  Category getRelocationDateCategories() {
         return relocationDateCategories;
     }
     
-    public static String getRandomCategory(Category category) {
+    public int getRandomCategory(Category category) {
         
         // based on the data in a category table, this method picks
         // one of the elements of the table randomly and returns the index
@@ -56,45 +79,110 @@ public class Categories {
         
         String s;
         double rnd = Math.random();
-        int x = category.whichRandom(rnd);
+        int x = category.whichChance(rnd);
         s = category.get(x).getS2();
-        System.out.printf("%.2f = %s\n", rnd, s);
-        System.out.println(s);
-        return s;
+        // System.out.printf("%.2f = %s\n", rnd, s);
+        // System.out.println(s);
+        return x;
     }
-
     
-    public static MortgageTuple assignRandomCategories(
-                    MortgageTuple mt
-                    )
-            
+    public MortgageTuple makeRandomTuples()
+                    
         // using data from the category tables,
         // this method fills in the members of of a mortgage record by 
         // randomly picking from the categories for each member.
         // 
         // currently fills in the members 
         //
-        //      ID, 
-        //      children, 
-        //      age, 
-        //      dateMoved
+        //      id (with generateNewID)
+        //      
+        // and picks random categories for
+        //    
+        //      children
+        //      age 
+        //      relocationDate
+        //      income
+        //
             
     {
         String s;
+        int c = 0;
 
-        s = getRandomCategory( getChildCategories() );
+        MortgageTuple mt = new MortgageTuple();
+        
+        mt.generateNewID();                     
+        
+        Category category;
+                
+        category = childCategories;
+        c = getRandomCategory( category );
+        s = category.get(c).getS2();
         mt.setChildren(s);
 
-        s = getRandomCategory( getAgeCategories() );
+        category = this.ageCategories;
+        c = getRandomCategory( category );
+        s = category.get(c).getS2();
         mt.setAge(s);
 
-        s = getRandomCategory( getRelocationDateCategories() );
-        mt.setDatemoved(s);
+        category = this.relocationDateCategories;
+        c = getRandomCategory( category );
+        s = category.get(c).getS2();        
+        mt.setRelocationDate(s);
 
-        s = getRandomCategory( getIncomeCategories() );
+        category = this.incomeCategories;
+        c = getRandomCategory( category );
+        s = category.get(c).getS2();
         mt.setIncome(s);
         
         return mt;
     }
+    
+    public double[] getProbabilitiesList(MortgageTuple mt)
+    {
+        double[] list = new double[4];
+        
+        double p1, p2, p3, p4;
+        
+        int children = (int) mt.getiChildren();
+        int age = (int) mt.getiAge();
+        int income = (int) mt.getiIncome();
+        int relocation = (int) mt.getiRelocationDate();
+
+        p1 = getPercentage( "children",     children,   this.childCategories );
+        p2 = getPercentage( "age",          age,        this.ageCategories );
+        p3 = getPercentage( "income",       income,     this.incomeCategories );
+        p4 = getPercentage( "relocation",   relocation, this.relocationDateCategories );
+        
+        int x = 0;
+        
+        list[x++] = p1;
+        list[x++] = p2;
+        list[x++] = p3;
+        list[x++] = p4;
+        
+        return list;
+    }
+    
+
+    public CategoryLineItem getLineItem(String swhich, int incCat, Category category) {
+        CategoryLineItem cil;
+        cil = category.get(incCat);
+        if (cil == null)
+        {
+            System.err.printf("lineitem %d null in getLineItem for %s\n",
+                    incCat, swhich);
+        }
+
+        return cil;
+    }
+    
+    public double getPercentage(String swhich, int index, Category category) {
+        double d = 0;
+        CategoryLineItem cil = getLineItem(swhich, index, category);
+        d = cil.percentLikely;
+        return d;
+    }
+    
+    
     
 }

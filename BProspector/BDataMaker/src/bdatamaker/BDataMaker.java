@@ -4,11 +4,6 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
-
-
-
-
-
 public class BDataMaker 
 {
     
@@ -18,7 +13,9 @@ public class BDataMaker
         // each record into
         
         Categories categories = new Categories();
-        boolean ok = categories.read();
+        boolean ok = categories.readFromDataFiles();
+        
+        System.out.println(categories);
         
         // this is our arraylist of records that we will write out
         // to a file.
@@ -28,14 +25,23 @@ public class BDataMaker
         // generate 100 tuples, selecting each category in
         // the object randomly.
         
-        int recordsToMake = 100;
+        int recordsToMake = 5;
         for (int counter = 0; counter < recordsToMake; counter++) 
         {
             
             MortgageTuple mt = new MortgageTuple(); // new record
-            Categories.assignRandomCategories(           // randomly assign categories
-                                mt); 
+            mt = categories.makeRandomTuples();     // randomly assign categories
             tuples.add(mt);                         // add it to our list
+            // System.out.println(mt);
+            double[] percentages = categories.getProbabilitiesList(mt);
+            double percentForMortgage = 1;
+            for (double d: percentages)
+            {
+                percentForMortgage *= d;
+                // System.out.printf("%6.2f ", d);
+            }
+            System.out.printf(" equals %.6f\n", percentForMortgage);
+            
         }
         
         // let's print out our list.  Comment this out

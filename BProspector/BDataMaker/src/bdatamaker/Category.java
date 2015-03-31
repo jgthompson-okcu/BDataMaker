@@ -7,21 +7,25 @@ public class Category
     String[][] saData;
     String categoryName;
     String firstLetter;
-    ArrayList<Triple> triples = new ArrayList<>();
+    ArrayList<CategoryLineItem> categoryLineItems = new ArrayList<>();
     
-    Triple get(int n)
+    CategoryLineItem get(int n)
     {
-	if (n >= 0 && n< triples.size())
+	if (n >= 0 && n< categoryLineItems.size())
 	{
-	    return triples.get(n);
+	    return categoryLineItems.get(n);
 	}
+        else
+        {
+            System.err.printf("Error: Category.get(%d) - no such category\n",n);
+        }
 	return null;
     }
+
     Category(String[][] array)
     {
 	saData = array;
-	
-
+        
 	for (int x = 0; x < array.length; x++)
 	{
 	    String[] sa = array[x];
@@ -32,21 +36,21 @@ public class Category
 	    }
 	    else
 	    {
-		Triple t = new Triple(sa);
-		triples.add(t);
+		CategoryLineItem t = new CategoryLineItem(sa);
+		categoryLineItems.add(t);
 	    }
 	}
 	
 	assignPercents();
     }
     
-    int whichRandom(double percent)
+    int whichChance(double percent)
     {
 	double percs = 0;
 	int x = 0;
-	for (int i = 0; i < triples.size(); i++)
+	for (int i = 0; i < categoryLineItems.size(); i++)
 	{
-	    Triple t = triples.get(i);
+	    CategoryLineItem t = categoryLineItems.get(i);
 	    percs += t.percentLikely;
 	    if (percent < percs)
 		return x;
@@ -55,30 +59,30 @@ public class Category
 	return -1;
     }
     
-    int countDivisors()
+    int countTotalCategoryChances()
     {
-	int divs = 0;
-	for (Triple t: triples)
+	int chances = 0;
+	for (CategoryLineItem t: categoryLineItems)
 	{
-	    divs += t.getDivs();
+	    chances += t.getChances();
 	}
-	return divs;
+	return chances;
     }
     
     void assignPercents()
     {
-	if (triples.isEmpty())
+	if (categoryLineItems.isEmpty())
 	{
 	    System.out.println("Can't work with an empty array of categories");
 	}
-	double p = 1.00 / countDivisors();
+	double p = 1.00 / countTotalCategoryChances();
 	int x = 0;
-	for (Triple triple: triples)
+	for (CategoryLineItem categoryLineItem: categoryLineItems)
 	{
-	    int divs = triple.getDivs();
-	    double percent = p * divs;
-	    triple.setPerc(percent);
-	    triples.set(x++, triple);
+	    int chances = categoryLineItem.getChances();
+	    double percent = p * chances;
+	    categoryLineItem.setPercentLikely(percent);
+	    categoryLineItems.set(x++, categoryLineItem);
 	}
     }
     
@@ -86,9 +90,9 @@ public class Category
     public String toString()
     {
 	String s = "";
-	for (Triple t: triples)
+	for (CategoryLineItem t: categoryLineItems)
 	{
-	    s+= String.format("%-15s %10s %3s %5.3f\n",t.getS1(), t.getS2(), t.getS3(), t.getPerc());
+	    s+= String.format("%s\n", t);
 	}
 	return s;
     }
