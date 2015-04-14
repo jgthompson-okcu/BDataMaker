@@ -4,6 +4,7 @@ package bdatamaker;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Scanner;
 
 public class Utils {
 
@@ -62,29 +63,74 @@ public class Utils {
         }
         return r;
     }
+    
+    public static int getSafeInt(String msg, Scanner sc, int defaultInt)
+    {
+	int r;
+	String s;
+	while (true)
+	{
+
+	    System.out.println(msg);
+	    s = sc.next();
+	    if (s.equalsIgnoreCase("OK"))
+	    {
+		r = defaultInt;
+		break;
+	    }
+	    try 
+	    {
+		r = Integer.parseInt(s);
+		break;
+	    }
+	    catch (Exception ex) 
+	    {
+		System.out.printf("%s is not a valid integer",s);
+	    }
+	} // end while
+	return r;
+    }
 
     public static int parseIntSafely(String s) {
         int r;
-        try {
+        try 
+	{
             r = Integer.parseInt(s);
-        } catch (Exception ex) {
+        }
+	catch (Exception ex) 
+	{
             r = 0;
         }
         return r;
     }
-    
-        public double addTuplePercents(MortgageTuple mt)
-        {
-            double d = 0;
-            
-            int which = (int) mt.getiAge();
-            
-            
-            
-            
-            return d;
-            
+
+    static Double parseDoubleSafely(String s) {
+        Double r;
+        try 
+	{
+            r = Double.parseDouble(s);
         }
+	catch (Exception ex) 
+	{
+            r = new Double(0f);
+        }
+        return r;
+    }
+    
+    
+    
+    public double addTuplePercents(MortgageTuple mt)
+    {
+	double d = 0;
+
+	int which = (int) mt.getiAge();
+
+
+
+
+	return d;
+
+    }
 }
 
 final class SessionIdentifierGenerator {

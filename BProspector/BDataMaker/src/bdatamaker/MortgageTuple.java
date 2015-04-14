@@ -33,8 +33,28 @@ public class MortgageTuple
         
         public MortgageTuple()
         {
-            reset(this);
+	    MortgageTuple t = this;
+            reset(t);
         }
+
+	MortgageTuple(String[] tk) 
+	{
+	    MortgageTuple t = this;
+	    MortgageTuple.setValuesFromStringArray(t, tk);
+	}
+	
+	public static MortgageTuple setValuesFromStringArray(MortgageTuple mt, String[] tk)
+	{
+	    int x = 0;
+	    mt.setId(tk[x++]);
+	    mt.setChildren(tk[x++]);
+	    mt.setAge(tk[x++]);
+	    mt.setRelocationDate(tk[x++]);
+	    mt.setIncome(tk[x++]);
+	    mt.setMortgageBought(tk[x++]);
+	    mt.setMortgageCandidateRating(tk[x++]);
+	    return mt;
+	}
         
         public void generateNewID()
         {
@@ -57,7 +77,7 @@ public class MortgageTuple
                 mt.iIncome = -1;
                 mt.mortgageBought  = "xx";
                 mt.iMortgageBought = -1;
-                mt.mortgageCandidateRating  = "xx";
+                mt.mortgageCandidateRating  = "Z-1";
                 mt.iMortgageCandidateRating = -1;
                 return mt;
         }
@@ -69,9 +89,24 @@ public class MortgageTuple
             String s;
             s = String.format("%s,%s,%s,%s,%s,%s,%s",
                     this.id, this.children, this.age, this.relocationDate,
-                    this.income, this.iMortgageBought, this.mortgageCandidateRating);
+                    this.income, this.mortgageBought, this.mortgageCandidateRating);
             return s;
         }
+	
+    public String toStringShort()
+    {
+            String f1 = "MortgageTuple record: (%s%s%s%s%s%s)";
+            String s = "";
+	    s += String.format(f1,
+                    this.children, 
+                    this.age, 
+                    this.relocationDate,
+                    this.income, 
+                    this.mortgageBought, 
+                    this.mortgageCandidateRating
+                    );
+	    return s;
+    }
         @Override
         public String toString()
         {

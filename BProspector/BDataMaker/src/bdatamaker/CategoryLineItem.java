@@ -77,8 +77,9 @@ public class CategoryLineItem
 	this.percentLikely = d;
     }
 
-    int getChances() 
+    int getChancesOld() 
     {
+	
 	int chances = 1; // every category at least gets one chance
         
         // if there is more than once + sign in the
@@ -93,4 +94,12 @@ public class CategoryLineItem
 	return chances;
     } // end getChances
 
+    int getChances() 
+    {
+	
+        int chances = this.getS3().length();
+	return chances;
+    } // end getChances
+    
+    
 } // end class

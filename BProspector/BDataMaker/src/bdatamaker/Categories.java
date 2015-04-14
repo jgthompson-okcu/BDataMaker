@@ -99,12 +99,15 @@ public class Categories {
         // System.out.println(s);
         return x;
     }
-    
-    public MortgageTuple makeRandomTuples()
+
+    public MortgageTuple makeRandomTuples_EvenDistribution()
                     
-        // using data from the category tables,
         // this method fills in the members of of a mortgage record by 
         // randomly picking from the categories for each member.
+	//
+	//    Distribution is even, rather than following probabilities
+	//    defined in category files.
+	//    
         // 
         // currently fills in the members 
         //
@@ -119,8 +122,10 @@ public class Categories {
         //
             
     {
+	
+	
         String s;
-        int c = 0;
+        int c;
 
         MortgageTuple mt = new MortgageTuple();
         
@@ -145,6 +150,62 @@ public class Categories {
 
         category = this.incomeCategories;
         c = getRandomCategoryByEvenProbability( category );
+        s = category.get(c).getS2();
+        mt.setIncome(s);
+        
+        return mt;
+    }
+    
+    
+    public MortgageTuple makeRandomTuples_UnevenDistribution()
+                    
+        // using data from the category tables,
+        // this method fills in the members of of a mortgage record by 
+        // randomly picking from the categories for each member.
+        //
+	//    Distribution is not even-- it follows the probabilities
+	//    defined in category files.
+	//    
+        // currently fills in the members 
+        //
+        //      id (with generateNewID)
+        //      
+        // and picks random categories for
+        //    
+        //      children
+        //      age 
+        //      relocationDate
+        //      income
+        //
+            
+    {
+	
+        String s;
+        int c;
+
+        MortgageTuple mt = new MortgageTuple();
+        
+        mt.generateNewID();                     
+        
+        Category category;
+                
+        category = childCategories;
+        c = getRandomCategoryBySpecifiedProbabilities( category );
+        s = category.get(c).getS2();
+        mt.setChildren(s);
+
+        category = this.ageCategories;
+        c = getRandomCategoryBySpecifiedProbabilities( category );
+        s = category.get(c).getS2();
+        mt.setAge(s);
+
+        category = this.relocationDateCategories;
+        c = getRandomCategoryBySpecifiedProbabilities( category );
+        s = category.get(c).getS2();        
+        mt.setRelocationDate(s);
+
+        category = this.incomeCategories;
+        c = getRandomCategoryBySpecifiedProbabilities( category );
         s = category.get(c).getS2();
         mt.setIncome(s);
         

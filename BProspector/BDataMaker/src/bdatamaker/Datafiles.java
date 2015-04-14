@@ -47,38 +47,38 @@ Child, C1, +
  */
 public class Datafiles {
 
-    private String[][] childrenCategories = {
+    private final String[][] childrenCategories = {
         {"Number of children",  "C",    ""              },
         {"0  Children",         "C0",   "+"             },
-        {"1  Child",            "C1",   "+"             },
-        {"2  Children",         "C2",   "+"             },
-        {"3  Children",         "C3",   "++"            },
-        {"4+ Children",         "C4",   "++"            }
+        {"1  Child",            "C1",   "+++++"             },
+        {"2  Children",         "C2",   "++++++++++"             },
+        {"3  Children",         "C3",   "+++++++++++++++++++++++"        },
+        {"4+ Children",         "C4",   "++++++++++++++++++++++++++++++++"            }
     };
-    private String[][] ageCategories = {
+    private final String[][] ageCategories = {
         {"Age range",   "A",    ""                      },
         {"18-25",       "A0",   "+"                     },
-        {"26-35",       "A1",   "++"                    },
-        {"36-45",       "A2",   "+++"                   },
-        {"46-55",       "A3",   "++"                    },
-        {"56-65",       "A4",   "+"                     },
+        {"26-35",       "A1",   "++++++++++++"		},
+        {"36-45",       "A2",   "++++++++++++++++"	},
+        {"46-55",       "A3",   "++++"                    },
+        {"56-65",       "A4",   "++"                     },
         {"66+",         "A5",   "+"                     }
     };
-    private String[][] relocationCategories = {
+    private final String[][] relocationCategories = {
         {"DATE MOVED",      "M",    ""                  },
-        {"This year",       "M0",   "++"                },
-        {"Last year",       "M1",   "+"                 },
+        {"This year",       "M0",   "++++++++++"	},
+        {"Last year",       "M1",   "++++++"            },
         {"Last 2 years",    "M2",   "+"                 },
         {"Last 3 years",    "M3",   "+"                 },
         {"Last 4 years",    "M4",   "+"                 }
     };
-    private String[][] incomeCategories = {
+    private final String[][] incomeCategories = {
         {"INCOME",          "I",    ""                  },
         {"<30000",          "I0",   "+"                 },
-        {"30000 < 40000",   "I1",   "+"                 },
-        {"40000 < 50000",   "I2",   "++"                },
-        {"50000 < 60000",   "I3",   "+++"               },
-        {"60000 < 70000",   "I4",   "++"                },
+        {"30000 < 40000",   "I1",   "++"                },
+        {"40000 < 50000",   "I2",   "++++"              },
+        {"50000 < 60000",   "I3",   "++++++++++++"             },
+        {"60000 < 70000",   "I4",   "++++++++++"               },
         {"70000 <100000",   "I5",   "+"                 },
         {"100001+",         "I6",   "+"                 }
     };
