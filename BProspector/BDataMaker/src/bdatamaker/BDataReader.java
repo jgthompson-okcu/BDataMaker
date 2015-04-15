@@ -5,7 +5,6 @@
  */
 package bdatamaker;
 
-import static bdatamaker.BDataMaker.DEFAULT_FILE_NAME;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -20,17 +19,25 @@ import java.util.logging.Logger;
 
 public class BDataReader {
     static Scanner sc = new Scanner(System.in);
-    static void main(String[] args)
+    static ArrayList<String> main(String[] args)
     {
+	double threshhold = 0.00;
+	boolean runonlyonce = false;
+	ArrayList<String> log = new ArrayList<>();
     
 	BufferedReader reader = null;
 
 
-	String filename = DEFAULT_FILE_NAME;
+	String filename = Launcher.DEFAULT_FILE_NAME;
 	
 	if (args.length > 0)
 	{
 	    filename = args[0];
+	}
+	if (args.length > 1)
+	{
+	    threshhold = Utils.parseDoubleSafely(args[1]);
+	    runonlyonce = true;
 	}
 	
 	String fullPathFileName;
@@ -39,6 +46,9 @@ public class BDataReader {
 	System.out.println("reading category data");
 	Categories categories = new Categories();
         boolean ok = categories.readFromDataFiles();
+	
+	String c = categories.toString2();
+	log.add(c);
 
 	ArrayList<MortgageTuple> mortgageDataList = new ArrayList<>();
 	
@@ -70,24 +80,24 @@ public class BDataReader {
 		
 	ASet2 aset = addRecordsToASet(filteredMortgageDataList);
 	
-//	for (MortgageTuple mt : filteredMortgageDataList)
-//	{
-//	    System.out.println(mt.toStringShort());
-//	}
-	
-	double threshhold = 0.00;
 	while (threshhold >= 0.00)
 	{
-	    System.out.println("Filter out records below what percent certainty?");
-	    String thresh = sc.next();
-	    threshhold = Utils.parseDoubleSafely(thresh);
+	    if (runonlyonce == false)
+	    {
+		System.out.println("Filter out records below what percent certainty?");
+		String thresh = sc.next();
+		threshhold = Utils.parseDoubleSafely(thresh);
+	    }
 	    if (threshhold >= 0)
 	    {
-		System.out.println(aset.toString(threshhold));
+		String s = aset.toString(threshhold);
+		log.add(s);
+		System.out.println(s);
 	    }
+	    if (runonlyonce == true)
+		break;
 	}
-	
-	
+	return log;
     } //////////////////////////////// end main ///////////////////////   
 
     public static ASet2 addRecordsToASet(ArrayList<MortgageTuple> mortgageDataList) {

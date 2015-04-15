@@ -274,6 +274,16 @@ public class Categories {
         p = percentForMortgage;
         return p;
     }    
+
+    public String toString2() 
+    {
+        String s = "";
+        s += String.format("childCategories\n%s\n",childCategories.toString2());
+        s += String.format("incomeCategories\n%s\n",incomeCategories.toString2());
+        s += String.format("ageCategories\n%s\n",ageCategories.toString2());
+        s += String.format("relocationDateCategories\n%s\n",relocationDateCategories.toString2());
+        return s;
+    }
     
     
     

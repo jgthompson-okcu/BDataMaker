@@ -70,20 +70,20 @@ public class ASet2
 	
 	TreeMap<String, Double> subTree;
 	subTree = getSubTree(minimumPercent);
+	s+= String.format("%-13s %6s\n","Categories","% confidence"); 
 	
 	for(Map.Entry<String, Double> entry : subTree.entrySet())
 	{
 	    countAboveThreshhold++;
-	    s+= String.format("%-13s, %6.2f", 
-		    entry.getKey(), 
+	    s+= String.format("%-13s %6.2f", 
+		    entry.getKey().substring(2), 
 		    entry.getValue()
 		    );
 	    s+= "\n";
 	}
-	if (minimumPercent > 0.00)
-	{
-	    s+= String.format("Keys above threshhold = %6.2f",100.00 * countAboveThreshhold/count);
-	}
+	
+	s+= String.format("%% of Keys above minimumm threshhold of %.2f%% = %6.2f%%",minimumPercent, 100.00 * countAboveThreshhold/count);
+	
 	return s;
 	
     }

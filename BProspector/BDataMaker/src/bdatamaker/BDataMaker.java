@@ -6,121 +6,27 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Scanner;
-
-
 
 
 public class BDataMaker 
 {
     
-    public static final String DEFAULT_FILE_NAME = "g:\\mortgagedata.txt";
-    public static final int DEFAULT_HOWMANY = 10000;
-    public static final double DEFAULT_PERCENT = 0.05;
-    
 
     
-    public static void main(String[] args) {
-	
-	
-	if (1 == 0x1) 
-	{
-	    main0(args);
-	}
-	else
-	{
-	    String[] sa = {"A1","B2", "C3", "D4", "E5"};
-	    ArrayList<String> results = PowerSet.makePowerSet(sa);
 
-	    ASet2 aset = new ASet2();
-
-	    for (String s : results)
-	    {
-		aset.add(s);
-	    }
-
-	    for (String s : results) {
-		aset.add(s);
-	    }
-
-	    System.out.println(aset);
-	}
-    }
     
     /////////////////////////////////////////////////////////////////
-    public static void main0(String[] args)
+    public static ArrayList<String> main2(String[] args) 
     {
-	ArrayList<String> log = new ArrayList<>();
-	String choices = "DM  DR";
-	Scanner sc = new Scanner(System.in);
-	String choice = "";
-	
-	getchoiceloop:
-	while (true)
-	{
-	    System.out.println("DM for datamaker, DR for datareader\n");
-	    choice = sc.next().toUpperCase();
-	    boolean ok1 = choice.length() == 2;
-	    boolean ok2 = (choices.contains(choice) == true); 
-	    if ( ok1 && ok2 )
-	    {
-		break getchoiceloop;
-	    }
-	    System.out.printf("Choice %s not recognized\n", choice);
-	}
-	
-	System.out.printf("Enter filename, or type OK to accept default (%s) ",DEFAULT_FILE_NAME);
-	String userSpecifiedFileName = sc.next();
-	if (userSpecifiedFileName.equalsIgnoreCase("OK")== true)
-	{
-	    userSpecifiedFileName = DEFAULT_FILE_NAME;
-	}
-	
-	if (choice.equalsIgnoreCase("DM"))
-	{
-	    String[] args3 = new String[3];
-	    String msg =String.format("Enter number of records to make, or type OK to accept default (%d) ", 
-		    DEFAULT_HOWMANY);
-	    String userSpecifiedPercent = ""+DEFAULT_PERCENT;
-	    args3[0] = userSpecifiedFileName;
-	    int iUserSpecifiedNumberOfRecords = Utils.getSafeInt(msg, sc, DEFAULT_HOWMANY);
-	    String userSpecifiedNumberOfRecords = "" + iUserSpecifiedNumberOfRecords;
-	    args3[1] = userSpecifiedNumberOfRecords;
-	    args3[2] = ""+userSpecifiedPercent;
-
-	    log.addAll(main2(args3));
-	}
-	else if (choice.equalsIgnoreCase("DR"))
-	{
-	    String[] args2 = new String[1];
-	    args2[0] = userSpecifiedFileName;
-	    BDataReader.main(args2);
-	}
-	else 
-	{
-	    System.out.printf("%s is not a recognized choice\n",choice);
-	}
-	
-	for (String s : log)
-	{
-	    System.out.println("*** "+s);
-	}
-    
-    }
-    
-
-    
-    /////////////////////////////////////////////////////////////////
-    public static ArrayList<String> main2(String[] args) {
         
         // retrieve our data tables -- categories to place
         // each record into
 	
         ArrayList<String> log = new ArrayList<>();
 	
-	String filename = DEFAULT_FILE_NAME;
-	int recordsToMake = DEFAULT_HOWMANY;	
-	Double percent = DEFAULT_PERCENT;
+	String filename = Launcher.DEFAULT_FILE_NAME;
+	int recordsToMake = Launcher.DEFAULT_HOWMANY;	
+	Double percent = Launcher.DEFAULT_PERCENT;
 	
 	if (args.length > 0)
 	{
@@ -270,3 +176,44 @@ public class BDataMaker
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    public static void main(String[] args) {
+//	
+//	
+//	main0(args);
+	
+//	else
+//	{
+//	    String[] sa = {"A1","B2", "C3", "D4", "E5"};
+//	    ArrayList<String> results = PowerSet.makePowerSet(sa);
+//
+//	    ASet2 aset = new ASet2();
+//
+//	    for (String s : results)
+//	    {
+//		aset.add(s);
+//	    }
+//
+//	    for (String s : results) {
+//		aset.add(s);
+//	    }
+//
+//	    System.out.println(aset);
+//	}
+//    }
+//    
+    /////////////////////////////////////////////////////////////////

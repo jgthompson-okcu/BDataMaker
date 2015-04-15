@@ -96,6 +96,16 @@ public class Category
 	}
 	return s;
     }
+
+    String toString2() 
+    {
+	String s = "";
+	for (CategoryLineItem t: categoryLineItems)
+	{
+	    s+= String.format("%s\n", t.toString2());
+	}
+	return s;
+    }
     
 }
 

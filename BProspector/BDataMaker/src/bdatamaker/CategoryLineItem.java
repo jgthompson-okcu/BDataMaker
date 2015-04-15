@@ -100,6 +100,12 @@ public class CategoryLineItem
         int chances = this.getS3().length();
 	return chances;
     } // end getChances
+
+    public String toString2() {
+        String s = "";
+        s+= String.format("%-6s %-15s", getS2(), getS1());
+        return s;
+    }
     
     
 } // end class

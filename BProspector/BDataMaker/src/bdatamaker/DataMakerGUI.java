@@ -13,12 +13,18 @@ import java.util.ArrayList;
  * @author Jeff
  */
 public class DataMakerGUI extends javax.swing.JFrame {
+    
+    static boolean bExitOnClose = true;
 
     /**
      * Creates new form DataMakerGUI
      */
     public DataMakerGUI() {
 	initComponents();
+	if (bExitOnClose == false)
+	{
+	    setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+	}
     }
 
     /**
