@@ -4,42 +4,54 @@ Clustering Data for beyesian analysis
 
 
 
-
-CHILDREN  0      A
-CHILDREN  1-2    B
-CHILDREN  3+     C
+CHILDREN  0      C0
+CHILDREN  1      C1
+CHILDREN  2      C2
+CHILDREN  3      C3 + 
+CHILDREN  4+     C4 ++
 
 AGE GROUPS
-18-25            D
-26-35            E
-36-45            F
-46-55            G
-56-65            H
-66+              I
+18-25            A0
+26-35            A1 +
+36-45            A2 ++
+46-55            A3 +
+56-65            A4
+66+              A5
 
-DATE MOVED
-WITHIN PAST YEAR J
-2-3 YEARS        J
-4+ YEARS         L
+{
+{"DATE MOVED",       "M",  ""  },
+{"This year",        "M0", "+" },
+{"Last 1 year",      "M1", ""  },
+{"Last 2 years",     "M2", ""  },
+{"Last 3 years",     "M3", ""  },
+{"Last 4 years",     "M4", ""  },
+}
 
-INCOME
-<30000           M
-30000+40000      N
-40000+50000      O
-50000+60000      P 
-60000+70000      Q
-70000+           R
 
-Owns current home: no   S
-Owns current home: yes  T
+
+{
+{"INCOME","I",""},
+{"<30000",           "I0",  ""},
+{"30000 < 40000",    "I1",  ""},
+{"40000 < 50000",    "I2",  "+"},
+{"50000 < 60000",    "I3",  "++"},
+{"60000 < 70000",    "I4",  "+"},
+{"70000 <100000",    "I5",  ""},
+{"100001+",          "I6",  ""}
+}
+
+
+Owns current home: no   H0
+Owns current home: yes  H1
 
 YEARS SINCE HOME PURCHASE
 
--1 (never)              U
-0-1                     V
-2-5                     W
-6-10                    X
-11+                     Y
+-1 (never)              L0
+0                       L1
+1-2			L2
+3-5                     L3
+6-10                    L4
+11+                     L5
 
 
 
